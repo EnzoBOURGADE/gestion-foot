@@ -1,5 +1,10 @@
 <?php
 require_once 'connect.php';
+require_once 'session.php';
+
+check_login();
+
+include 'header.php';
 
 $stmt = $pdo->query("SELECT * FROM player");
 $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -32,11 +37,13 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <td><?= htmlspecialchars($p['player_id']) ?></td>
             <td><?= htmlspecialchars($p['player_name']) ?></td>
             <td><?= htmlspecialchars($p['player_surname']) ?></td>
+            <td><?= htmlspecialchars($p['player_post']) ?></td>
             <td><?= htmlspecialchars($p['player_club']) ?></td>
             <td><?= htmlspecialchars($p['player_age']) ?></td>
-            <td><?= htmlspecialchars($p['player_post']) ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
+
+<?php include 'footer.php'; ?>
 </body>
 </html>
