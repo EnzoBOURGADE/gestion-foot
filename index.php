@@ -1,7 +1,7 @@
 <?php
 require_once 'connect.php';
 
-$stmt = $pdo->query("SELECT * FROM players ORDER BY lastname");
+$stmt = $pdo->query("SELECT * FROM player");
 $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -29,12 +29,12 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </tr>
     <?php foreach ($players as $p): ?>
         <tr>
-            <td><?= htmlspecialchars($p['id']) ?></td>
-            <td><?= htmlspecialchars($p['lastname']) ?></td>
-            <td><?= htmlspecialchars($p['firstname']) ?></td>
-            <td><?= htmlspecialchars($p['position']) ?></td>
-            <td><?= htmlspecialchars($p['club']) ?></td>
-            <td><?= htmlspecialchars($p['number']) ?></td>
+            <td><?= htmlspecialchars($p['player_id']) ?></td>
+            <td><?= htmlspecialchars($p['player_name']) ?></td>
+            <td><?= htmlspecialchars($p['player_surname']) ?></td>
+            <td><?= htmlspecialchars($p['player_club']) ?></td>
+            <td><?= htmlspecialchars($p['player_age']) ?></td>
+            <td><?= htmlspecialchars($p['player_post']) ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
