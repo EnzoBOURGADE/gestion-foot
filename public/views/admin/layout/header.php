@@ -23,7 +23,7 @@ include 'head.php';
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <a class="navbar-brand" href="../player/index.php">⚽ FootDB</a>
+    <a class="navbar-brand" href="../../connect/">⚽ FootDB</a>
 
     <div class="ms-auto d-flex align-items-center">
         <?php if (isset($_SESSION['user'])): ?>
@@ -33,7 +33,7 @@ include 'head.php';
                 $pages = ['club', 'player', 'country'];
                 if (is_admin()) $pages[] = 'users';
                 foreach ($pages as $page): ?>
-                    <a class="btn btn-outline-light" href="./<?= $prefix ?>/<?= $page ?>/index.php">
+                    <a class="btn btn-outline-light" href="../../<?= $prefix ?>/<?= $page ?>/index.php">
                         <?= ucfirst($page) ?>
                     </a>
                 <?php endforeach; ?>

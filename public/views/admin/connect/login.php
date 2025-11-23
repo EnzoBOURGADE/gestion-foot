@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $error = "Email ou mot de passe incorrect.";
     } else {
         $_SESSION["user"] = $user;
-        header("Location: index.php");
+        header("Location: ../player/index.php");
         exit;
     }
 }

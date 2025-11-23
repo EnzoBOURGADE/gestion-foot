@@ -1,5 +1,5 @@
 <?php
 require 'session.php';
 session_destroy();
-header("Location: ../player/index.php");
+header("Location: ../connect/login.php");
 exit;
