@@ -4,8 +4,10 @@ require_once "../connect/session.php";
 
 check_login();
 
+// Active affichage erreurs PDO
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+// Récupération POST
 $name = $_POST['player_name'];
 $surname = $_POST['player_surname'];
 $post = $_POST['player_post'];
