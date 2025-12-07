@@ -4,40 +4,40 @@ require_once "../connect/session.php";
 
 check_login();
 
-// Active affichage erreurs PDO
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Récupération POST
-$name = $_POST['player_name'];
-$surname = $_POST['player_surname'];
-$post = $_POST['player_post'];
-$club = (int) $_POST['player_club'];
-$nation = (int) $_POST['player_nationnality'];
-$age = (int) $_POST['player_age'];
+$name = $_POST['club_name'];
+$country = (int) $_POST['club_country'];
+$coach = (int) $_POST['club_coach'];
+$ucl = (int) $_POST['palmares_ucl'];
+$championnat = (int) $_POST['palmares_championnat'];
+$wc = (int) $_POST['palmares_wc'];
+$palmares = 8;
 
-// Mode modification ?
-$is_edit = isset($_POST['player_id']) && is_numeric($_POST['player_id']);
+
+
+$is_edit = isset($_POST['club_id']) && is_numeric($_POST['club_id']);
 
 if ($is_edit) {
-    $id = (int) $_POST['player_id'];
+    $id = (int) $_POST['club_id'];
     $stmt = $pdo->prepare("
-        UPDATE player
-        SET player_name = ?, player_surname = ?, player_post = ?, player_club = ?, player_nationnality = ?, player_age = ?
-        WHERE player_id = ?
+        UPDATE club
+        SET club_name = ?, club_country = ?, club_coach = ?, club_palmares = ?
+        WHERE club_id = ?
     ");
-    $stmt->execute([$name, $surname, $post, $club, $nation, $age, $id]);
+    $stmt->execute([$name, $country, $coach, $palmares, $id]);
 
-    $_SESSION['flash_message'] = "Le joueur a été mis à jour.";
+    $_SESSION['flash_message'] = "Le club a été mis à jour.";
     $_SESSION['flash_type'] = "success";
 
 } else {
     $stmt = $pdo->prepare("
-        INSERT INTO player (player_name, player_surname, player_post, player_club, player_nationnality, player_age)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO club (club_name, club_country, club_coach, club_palmares)
+        VALUES (?, ?, ?, ?)
     ");
-    $stmt->execute([$name, $surname, $post, $club, $nation, $age]);
+    $stmt->execute([$name, $country, $coach, $palmares]);
 
-    $_SESSION['flash_message'] = "Le joueur a été ajouté.";
+    $_SESSION['flash_message'] = "Le club a été ajouté.";
     $_SESSION['flash_type'] = "success";
 }
 

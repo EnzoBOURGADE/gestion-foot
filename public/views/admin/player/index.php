@@ -32,18 +32,15 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
         ?>
     <?php endif; ?>
 
-    <!-- Bouton Ajouter -->
     <div class="text-center mb-3">
         <a href="form.php" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Ajouter un joueur
         </a>
     </div>
 
-    <!-- Table -->
     <table class="table table-striped table-bordered text-center">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Nom</th>
             <th>Prénom</th>
             <th>Poste</th>
@@ -56,7 +53,6 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <tbody>
         <?php foreach ($players as $p): ?>
             <tr>
-                <td><?= htmlspecialchars($p['player_id']) ?></td>
                 <td><?= htmlspecialchars($p['player_name']) ?></td>
                 <td><?= htmlspecialchars($p['player_surname']) ?></td>
                 <td><?= htmlspecialchars($p['player_post']) ?></td>

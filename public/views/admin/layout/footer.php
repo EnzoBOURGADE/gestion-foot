@@ -1,6 +1,8 @@
 <footer class="bg-dark text-white text-center py-3 mt-5">
     <div class="container">
         <p class="mb-0">© <?= date('Y') ?> FootDB — Tous droits réservés</p>
+        <br>
+        <p> Version : 1.0.0</p>
     </div>
 </footer>
 

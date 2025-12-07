@@ -46,7 +46,6 @@ $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <table class="table table-striped table-bordered text-center">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Nom</th>
             <th>Pays</th>
             <th>Coach</th>
@@ -59,7 +58,6 @@ $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <tbody>
         <?php foreach ($clubs as $c): ?>
             <tr>
-                <td><?= htmlspecialchars($c['club_id']) ?></td>
                 <td><?= htmlspecialchars($c['club_name']) ?></td>
                 <td><?= htmlspecialchars($c['country_name']) ?></td>
                 <td>
