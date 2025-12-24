@@ -35,7 +35,7 @@ include 'head.php';
             <div class="nav-buttons">
                 <?php
                 $prefix = is_admin() ? 'user' : 'admin';
-                $pages = ['club', 'player', 'country', 'user'];
+                $pages = ['club', 'player', 'coach', 'country', 'user'];
                 if (is_admin()) $pages[] = 'users';
                 foreach ($pages as $page): ?>
                     <a class="btn btn-outline-light" href="../../<?= $prefix ?>/<?= $page ?>/index.php">
