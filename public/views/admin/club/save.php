@@ -1,6 +1,6 @@
 <?php
-require_once "../connect/connect.php";
-require_once "../connect/session.php";
+require_once "../../connect/connect.php";
+require_once "../../connect/session.php";
 
 check_login();
 

@@ -1,5 +1,10 @@
 <?php
-require_once '../connect/session.php';
+if (file_exists('../../connect/session.php')) {
+    require_once '../../connect/session.php';
+}
+else {
+    require_once '../connect/session.php';
+}
 include 'head.php';
 ?>
 
@@ -23,14 +28,14 @@ include 'head.php';
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <a class="navbar-brand" href="../../connect/">⚽ FootDB</a>
+    <a class="navbar-brand" href="../player/index.php">⚽ FootDB</a>
 
     <div class="ms-auto d-flex align-items-center">
         <?php if (isset($_SESSION['user'])): ?>
             <div class="nav-buttons">
                 <?php
                 $prefix = is_admin() ? 'user' : 'admin';
-                $pages = ['club', 'player', 'country'];
+                $pages = ['club', 'player', 'country', 'user'];
                 if (is_admin()) $pages[] = 'users';
                 foreach ($pages as $page): ?>
                     <a class="btn btn-outline-light" href="../../<?= $prefix ?>/<?= $page ?>/index.php">
@@ -48,9 +53,9 @@ include 'head.php';
                 <?php if (isset($_SESSION['user'])): ?>
                     <li><span class="dropdown-item">👤 <?= htmlspecialchars($_SESSION['user']['user_username']) ?></span></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="../connect/logout.php">Se déconnecter</a></li>
+                    <li><a class="dropdown-item" href="../../connect/logout.php">Se déconnecter</a></li>
                 <?php else: ?>
-                    <li><a class="dropdown-item" href="../connect/login.php">Se connecter / S'inscrire</a></li>
+                    <li><a class="dropdown-item" href="../../connect/login.php">Se connecter / S'inscrire</a></li>
                 <?php endif; ?>
             </ul>
         </div>

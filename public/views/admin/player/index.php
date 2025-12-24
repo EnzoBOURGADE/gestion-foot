@@ -1,12 +1,11 @@
 <?php
-require_once "../connect/connect.php";
-require_once "../connect/session.php";
+require_once "../../connect/connect.php";
+require_once "../../connect/session.php";
 
 check_login();
 
-include '../layout/header.php';
+include '../../layout/header.php';
 
-// Récupération des joueurs
 $stmt = $pdo->query("
     SELECT p.*, c.club_name as name_club, co.country_name as name_nationnality 
     FROM player p
@@ -20,7 +19,6 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="container mt-4">
     <h1 class="text-center mb-4">Liste des joueurs</h1>
 
-    <!-- Flash message -->
     <?php if (isset($_SESSION['flash_message'])): ?>
         <div class="alert alert-<?= $_SESSION['flash_type'] ?> alert-dismissible fade show" role="alert">
             <?= $_SESSION['flash_message'] ?>
@@ -74,4 +72,4 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </table>
 </div>
 
-<?php include '../layout/footer.php'; ?>
+<?php include '../../layout/footer.php'; ?>

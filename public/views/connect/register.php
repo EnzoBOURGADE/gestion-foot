@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
 
-    // Vérifier si l'email existe déjà
     $stmt = $pdo->prepare("SELECT user_id FROM users WHERE user_email = ?");
     $stmt->execute([$email]);
     if ($stmt->fetch()) {

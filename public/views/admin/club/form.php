@@ -1,6 +1,6 @@
 <?php
-require_once "../connect/connect.php";
-require_once "../connect/session.php";
+require_once "../../connect/connect.php";
+require_once "../../connect/session.php";
 
 check_login();
 
@@ -38,7 +38,7 @@ $coach = $coach_stmt->fetchAll(PDO::FETCH_ASSOC);
 $countries_stmt = $pdo->query("SELECT country_id, country_name FROM country ORDER BY country_name");
 $countries = $countries_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-include '../layout/header.php';
+include '../../layout/header.php';
 ?>
 
 <div class="container mt-4">
@@ -102,4 +102,4 @@ include '../layout/header.php';
     </form>
 </div>
 
-<?php include '../layout/footer.php'; ?>
+<?php include '../../layout/footer.php'; ?>

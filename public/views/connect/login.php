@@ -17,8 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $error = "Email ou mot de passe incorrect.";
     } else {
         $_SESSION["user"] = $user;
-        header("Location: ../player/index.php");
+        if ($user['user_permission'] == 2) {
+            header("Location: ../admin/player/index.php");
+        } else {
+            header("Location: ../user/player/index.php");
+        }
         exit;
+
     }
 }
 ?>
@@ -37,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="alert alert-danger"><?= $error ?></div>
                 <?php endif; ?>
 
-                <!-- Pop-up succès inscription -->
                 <?php if ($showSuccess): ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         ✅ Votre compte a été créé avec succès ! Vous pouvez vous connecter.

@@ -1,10 +1,10 @@
 <?php
-require_once "../connect/connect.php";
-require_once "../connect/session.php";
+require_once "../../connect/connect.php";
+require_once "../../connect/session.php";
 
 check_login();
 
-include '../layout/header.php';
+include '../../layout/header.php';
 
 $stmt = $pdo->query("
     SELECT c.*,
@@ -85,4 +85,4 @@ $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </table>
 </div>
 
-<?php include '../layout/footer.php'; ?>
+<?php include '../../layout/footer.php'; ?>
