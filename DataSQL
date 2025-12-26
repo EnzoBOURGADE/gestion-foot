@@ -1,0 +1,161 @@
+INSERT INTO permission (name)
+VALUES('user'),
+('administrateur');
+
+
+INSERT INTO status (name)
+VALUES('active'),
+('inactive'),
+('blocked'),
+('banned');
+
+
+INSERT INTO users (name, surname, username, email, birthday, password, permission_id, status)
+VALUES
+('Admin', 'Admin', 'admin', 'admin@admin.fr', '1990-01-01', '$2b$12$f11hO12IFabYXP5QR0cSauOpj4J9PotbhT5Zn.Q0gpoILvHaRuX6.', 2, 0),
+('User', 'User', 'user', 'user@user.fr', '1995-05-15', '$2b$12$YMIJ/YtjCZC.Dk2nls3Smu6U2XyvlyU2wQVRnxycIMeZc7mkPm6.', 1, 0);
+
+
+INSERT INTO palmares_club (ucl, championnat, cwc)
+SELECT u.ucl, c.championnat, w.cwc
+FROM
+    (SELECT 0 AS ucl UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9
+     UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14
+     UNION ALL SELECT 15 UNION ALL SELECT 16 UNION ALL SELECT 17 UNION ALL SELECT 18 UNION ALL SELECT 19
+     UNION ALL SELECT 20) AS u
+CROSS JOIN
+    (SELECT 0 AS championnat UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9
+     UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14
+     UNION ALL SELECT 15 UNION ALL SELECT 16 UNION ALL SELECT 17 UNION ALL SELECT 18 UNION ALL SELECT 19
+     UNION ALL SELECT 20 UNION ALL SELECT 21 UNION ALL SELECT 22 UNION ALL SELECT 23 UNION ALL SELECT 24
+     UNION ALL SELECT 25 UNION ALL SELECT 26 UNION ALL SELECT 27 UNION ALL SELECT 28 UNION ALL SELECT 29
+     UNION ALL SELECT 30 UNION ALL SELECT 31 UNION ALL SELECT 32 UNION ALL SELECT 33 UNION ALL SELECT 34
+     UNION ALL SELECT 35 UNION ALL SELECT 36 UNION ALL SELECT 37 UNION ALL SELECT 38 UNION ALL SELECT 39
+     UNION ALL SELECT 40) AS c
+CROSS JOIN
+    (SELECT 0 AS cwc UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) AS w;
+
+
+INSERT INTO palmares_country (wc, titres_continentaux)
+SELECT w.wc, t.titres_continentaux
+FROM
+    (SELECT 0 AS wc UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9
+     UNION ALL SELECT 10) AS w
+CROSS JOIN
+    (SELECT 0 AS titres_continentaux UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9
+     UNION ALL SELECT 10) AS t;
+
+
+
+INSERT INTO palmares_player (bo, ucl, wc)
+SELECT b.bo, u.ucl, w.wc
+FROM
+    (SELECT 0 AS bo UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9
+     UNION ALL SELECT 10) AS b
+CROSS JOIN
+    (SELECT 0 AS ucl UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9
+     UNION ALL SELECT 10) AS u
+CROSS JOIN
+    (SELECT 0 AS wc UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
+     UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9
+     UNION ALL SELECT 10) AS w;
+
+
+
+INSERT INTO continent (name) VALUES
+('Afrique'),
+('Amérique du Nord'),
+('Amérique du Sud'),
+('Asie'),
+('Europe'),
+('Océanie'),
+('Antarctique');
+
+
+
+INSERT INTO country (name, continent_id, palmares) VALUES
+('Espagne', 5, NULL),
+('Argentine', 3, NULL),
+('France', 5, NULL),
+('Angleterre', 5, NULL),
+('Brésil', 3, NULL),
+('Portugal', 5, NULL),
+('Pays-Bas', 5, NULL),
+('Belgique', 5, NULL),
+('Allemagne', 5, NULL),
+('Croatie', 5, NULL),
+('Maroc', 1, NULL),
+('Italie', 5, NULL),
+('Colombie', 3, NULL),
+('États-Unis', 2, NULL),
+('Mexique', 2, NULL),
+('Uruguay', 3, NULL),
+('Suisse', 5, NULL),
+('Japon', 4, NULL),
+('Sénégal', 1, NULL),
+('Iran', 4, NULL),
+('Danemark', 5, NULL),
+('Corée du Sud', 4, NULL),
+('Équateur', 3, NULL),
+('Autriche', 5, NULL),
+('Turquie', 5, NULL),
+('Australie', 4, NULL),
+('Canada', 2, NULL),
+('Norvège', 5, NULL),
+('Panama', 2, NULL),
+('Pologne', 5, NULL),
+('Pays de Galles', 5, NULL),
+('Russie', 5, NULL),
+('Algérie', 1, NULL),
+('Égypte', 1, NULL),
+('Écosse', 5, NULL),
+('Serbie', 5, NULL),
+('Nigeria', 1, NULL),
+('Paraguay', 3, NULL),
+('Hongrie', 5, NULL),
+('Tunisie', 1, NULL),
+('Côte d’Ivoire', 1, NULL),
+('Suède', 5, NULL),
+('Tchéquie', 5, NULL),
+('Slovaquie', 5, NULL),
+('Grèce', 5, NULL),
+('Venezuela', 3, NULL),
+('Costa Rica', 2, NULL),
+('Ouzbékistan', 4, NULL),
+('Qatar', 4, NULL),
+('Arabie saoudite', 4, NULL),
+('Afrique du Sud', 1, NULL),
+('Jamaïque', 2, NULL),
+('Ghana', 1, NULL),
+('Cabo Verde', 1, NULL),
+('Nouvelle-Zélande', 6, NULL),
+('Jordan', 4, NULL),
+('Gabon', 1, NULL),
+('Israël', 5, NULL),
+('Bulgarie', 5, NULL),
+('Oman', 4, NULL),
+('Kosovo', 5, NULL),
+('Guinée', 1, NULL),
+('Curaçao', 2, NULL),
+('Monténégro', 5, NULL),
+('Zambie', 1, NULL),
+('Bénin', 1, NULL),
+('Chine', 4, NULL),
+('Guatemala', 2, NULL),
+('Thaïlande', 4, NULL),
+('Palestine', 4, NULL),
+('Guinée équatoriale', 1, NULL),
+('Trinité-et-Tobago', 2, NULL),
+('Biélorussie', 5, NULL),
+('Salvador', 2, NULL),
+('Tadjikistan', 4, NULL),
+('Mozambique', 1, NULL),
+('Luxembourg', 5, NULL),
+('Kirghizistan', 4, NULL);
+
