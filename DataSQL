@@ -12,8 +12,8 @@ VALUES('active'),
 
 INSERT INTO users (name, surname, username, email, birthday, password, permission_id, status)
 VALUES
-('Admin', 'Admin', 'admin', 'admin@admin.fr', '1990-01-01', '$2b$12$f11hO12IFabYXP5QR0cSauOpj4J9PotbhT5Zn.Q0gpoILvHaRuX6.', 2, 0),
-('User', 'User', 'user', 'user@user.fr', '1995-05-15', '$2b$12$YMIJ/YtjCZC.Dk2nls3Smu6U2XyvlyU2wQVRnxycIMeZc7mkPm6.', 1, 0);
+('Admin', 'Admin', 'admin', 'admin@admin.fr', '1990-01-01', '$2b$12$f11hO12IFabYXP5QR0cSauOpj4J9PotbhT5Zn.Q0gpoILvHaRuX6.', 2, 1),
+('User', 'User', 'user', 'user@user.fr', '1995-05-15', '$2b$12$YMIJ/YtjCZC.Dk2nls3Smu6U2XyvlyU2wQVRnxycIMeZc7mkPm6.', 1, 1);
 
 
 INSERT INTO palmares_club (ucl, championnat, cwc)
@@ -162,7 +162,7 @@ INSERT INTO country (name, continent_id, palmares) VALUES
 
 
 INSERT INTO coach (name, surname, birthday, nationnality) VALUES
-('Non', 'renseigné', NULL, NULL)
+('Non', 'renseigné', NULL, NULL),
 ('Luis', 'Enrique', '1970-05-08', (SELECT id FROM country WHERE name = 'Espagne')),
 ('Hansi', 'Flick', '1965-02-24', (SELECT id FROM country WHERE name = 'Allemagne')),
 ('Pep', 'Guardiola', '1971-01-18', (SELECT id FROM country WHERE name = 'Espagne')),
@@ -179,34 +179,32 @@ INSERT INTO coach (name, surname, birthday, nationnality) VALUES
 ('Kim', 'Pan-gon', '1969-04-07', (SELECT id FROM country WHERE name = 'Corée du Sud')),
 ('Igor', 'Tudor', '1978-04-16', (SELECT id FROM country WHERE name = 'Croatie')),
 ('Xabi', 'Alonso', '1981-11-25', (SELECT id FROM country WHERE name = 'Espagne')),
-('Roberto', 'De Zerbi', '1979-06-06', (SELECT id FROM country WHERE name = 'Italie')),
-
-
+('Roberto', 'De Zerbi', '1979-06-06', (SELECT id FROM country WHERE name = 'Italie'));
 
 INSERT INTO club (name, country_id, palmares, coach_id) VALUES
 
-('FC Barcelone', (SELECT id FROM country WHERE name = 'Espagne'), NULL, (SELECT id FROM coach WHERE name = 'Hansi' AND surname = 'Flick')),
-('Real Madrid', (SELECT id FROM country WHERE name = 'Espagne'), NULL, (SELECT id FROM coach WHERE name = 'Xabi' AND surname = 'Alonso')),
-('Atlético Madrid', (SELECT id FROM country WHERE name = 'Espagne'), NULL, (SELECT id FROM coach WHERE name = 'Diego' AND surname = 'Simeone')),
-('Villarreal', (SELECT id FROM country WHERE name = 'Espagne'), NULL, (SELECT id FROM coach WHERE name = 'Marcelino' AND surname = 'García Toral')),
-('Espanyol de Barcelona', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Real Betis', (SELECT id FROM country WHERE name = 'Espagne'), NULL, (SELECT id FROM coach WHERE name = 'Manuel' AND surname = 'Pellegrini')),
-('Celta de Vigo', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Athletic Club Bilbao', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Elche', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Séville', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Getafe', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Osasuna', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Majorque', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Deportivo Alaves', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Rayo Vallecano', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Real Sociedad', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Valence', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Girona', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Real Oviedo', (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
-('Levante' , (SELECT id FROM country WHERE name = 'Espagne'), NULL, 1),
+('FC Barcelone', (SELECT id FROM country WHERE name = 'Espagne'), (28 × 21 × 6) + (5 × 6) + 3 + 1, (SELECT id FROM coach WHERE name = 'Hansi' AND surname = 'Flick')),
+('Real Madrid', (SELECT id FROM country WHERE name = 'Espagne'), (36 × 21 × 6) + (15 × 6) + 5 + 1, (SELECT id FROM coach WHERE name = 'Xabi' AND surname = 'Alonso')),
+('Atlético Madrid', (SELECT id FROM country WHERE name = 'Espagne'), (11 × 21 × 6) + (0 × 6) + 0 + 1, (SELECT id FROM coach WHERE name = 'Diego' AND surname = 'Simeone')),
+('Villarreal', (SELECT id FROM country WHERE name = 'Espagne'), 0, (SELECT id FROM coach WHERE name = 'Marcelino' AND surname = 'García Toral')),
+('Espanyol de Barcelona', (SELECT id FROM country WHERE name = 'Espagne'), 0, 1),
+('Real Betis', (SELECT id FROM country WHERE name = 'Espagne'), (1 × 21 × 6) + (0 × 6) + 0 + 1, (SELECT id FROM coach WHERE name = 'Manuel' AND surname = 'Pellegrini')),
+('Celta de Vigo', (SELECT id FROM country WHERE name = 'Espagne'), 0, 1),
+('Athletic Club Bilbao', (SELECT id FROM country WHERE name = 'Espagne'), (8 × 21 × 6) + (0 × 6) + 0 + 1, 1),
+('Elche', (SELECT id FROM country WHERE name = 'Espagne'), 0, 1),
+('Séville', (SELECT id FROM country WHERE name = 'Espagne'), (1 × 21 × 6) + (0 × 6) + 0 + 1, 1),
+('Getafe', (SELECT id FROM country WHERE name = 'Espagne'), 0, 1),
+('Osasuna', (SELECT id FROM country WHERE name = 'Espagne'), 0, 1),
+('Majorque', (SELECT id FROM country WHERE name = 'Espagne'), 0, 1),
+('Deportivo Alaves', (SELECT id FROM country WHERE name = 'Espagne'), 0, 1),
+('Rayo Vallecano', (SELECT id FROM country WHERE name = 'Espagne'), 0, 1),
+('Real Sociedad', (SELECT id FROM country WHERE name = 'Espagne'), (2 × 21 × 6) + (0 × 6) + 0 + 1, 1),
+('Valence', (SELECT id FROM country WHERE name = 'Espagne'), (6 × 21 × 6) + (0 × 6) + 0 + 1, 1),
+('Girona', (SELECT id FROM country WHERE name = 'Espagne'), 0, 1),
+('Real Oviedo', (SELECT id FROM country WHERE name = 'Espagne'), 0, 1),
+('Levante' , (SELECT id FROM country WHERE name = 'Espagne'), 0, 1),
 
-('RC Lens' , (SELECT id FROM country WHERE name = 'France'), NULL, 1),
+('RC Lens' , (SELECT id FROM country WHERE name = 'France'), NULL, 1),                !!!!!!!!!!!!!!!!!!!!!!!!!!!ICI §§§§§§§§§§!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ('Paris Saint-Germain' , (SELECT id FROM country WHERE name = 'France'), NULL, (SELECT id FROM coach WHERE name = 'Luis' AND surname = 'Enrique')),
 ('Olympique de Marseille', (SELECT id FROM country WHERE name = 'France'), NULL, (SELECT id FROM coach WHERE name = 'Roberto' AND surname = 'De Zerbi')),
 ('LOSC Lille', (SELECT id FROM country WHERE name = 'France'), NULL, (SELECT id FROM coach WHERE name = 'Bruno' AND surname = 'Genesio')),
@@ -397,4 +395,4 @@ INSERT INTO club (name, country_id, palmares, coach_id) VALUES
 ('Ceará' , (SELECT id FROM country WHERE name = 'Brésil'), NULL, 1),
 ('Fortaleza' , (SELECT id FROM country WHERE name = 'Brésil'), NULL, 1),
 ('Juventude' , (SELECT id FROM country WHERE name = 'Brésil'), NULL, 1),
-('Sport Recife' , (SELECT id FROM country WHERE name = 'Brésil'), NULL, 1),
+('Sport Recife' , (SELECT id FROM country WHERE name = 'Brésil'), NULL, 1);

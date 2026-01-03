@@ -75,8 +75,7 @@ CREATE TABLE country (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (continent_id) REFERENCES continent(id),
-    FOREIGN KEY (palmares) REFERENCES palmares_country(id),
-    FOREIGN KEY (coach) REFERENCES coach(id)
+    FOREIGN KEY (palmares) REFERENCES palmares_country(id)
 );
 
 
@@ -129,8 +128,8 @@ CREATE TABLE pronostics_questions (
     text TEXT NOT NULL,
     date_limite DATETIME NOT NULL,
     response INT DEFAULT '0',
-    status INT DEFAULT '0'
-    FOREIGN KEY (status) REFERENCES status(id),
+    status INT DEFAULT '0',
+    FOREIGN KEY (status) REFERENCES status(id)
 );
 
 
