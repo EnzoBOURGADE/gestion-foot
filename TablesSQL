@@ -111,12 +111,13 @@ CREATE TABLE player (
     surname VARCHAR(20),
     birthday DATE,
     club INT,
-    nationnality INT,
+    nationality INT,
     palmares INT,
     post VARCHAR(20),
+    retired BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (nationnality) REFERENCES country(id),
+    FOREIGN KEY (nationality) REFERENCES country(id),
     FOREIGN KEY (club) REFERENCES club(id),
     FOREIGN KEY (palmares) REFERENCES palmares_player(id)
 );
