@@ -8,50 +8,16 @@ CREATE TABLE permission (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE status (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE users (
+CREATE TABLE status_user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50),
-    surname VARCHAR(50),
-    username VARCHAR(50),
-    tokens INT DEFAULT 1500,
-    email VARCHAR(100),
-    birthday DATE,
-    password VARCHAR(255),
-    permission_id INT,
-    status INT DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (permission_id) REFERENCES permission(id),
-    FOREIGN KEY (status) REFERENCES status(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE palmares_club (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    ucl INT DEFAULT 0,
-    championnat INT DEFAULT 0,
-    cwc INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE palmares_country (
+CREATE TABLE status_prediction (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    wc INT DEFAULT 0,
-    titres_continentaux INT DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE palmares_player (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    bo INT DEFAULT 0,
-    ucl INT DEFAULT 0,
-    wc INT DEFAULT 0,
+    name VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -63,66 +29,59 @@ CREATE TABLE continent (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
 CREATE TABLE country (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50),
     continent_id INT,
-    palmares INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (continent_id) REFERENCES continent(id),
-    FOREIGN KEY (palmares) REFERENCES palmares_country(id)
+    FOREIGN KEY (continent_id) REFERENCES continent(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE coach (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50),
-    surname VARCHAR(50),
-    birthday DATE,
-    nationality INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (nationality) REFERENCES country(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE club (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50),
     country_id INT,
-    palmares INT,
-    coach_id INT,
+    point INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (country_id) REFERENCES country(id),
-    FOREIGN KEY (palmares) REFERENCES palmares_club(id),
-    FOREIGN KEY (coach_id) REFERENCES coach(id)
+    FOREIGN KEY (country_id) REFERENCES country(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE player (
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50),
     surname VARCHAR(50),
+    username VARCHAR(50),
+    nationnality INT,
+    fav_club INT,
+    token VARCHAR(255),
+    money INT(50),
+    email VARCHAR(100),
     birthday DATE,
-    club INT,
-    nationality INT,
-    palmares INT,
-    post VARCHAR(50),
-    retired BOOLEAN DEFAULT FALSE,
+    password VARCHAR(255),
+    permission_id INT,
+    status_user INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (nationality) REFERENCES country(id),
-    FOREIGN KEY (club) REFERENCES club(id),
-    FOREIGN KEY (palmares) REFERENCES palmares_player(id)
+    FOREIGN KEY (permission_id) REFERENCES permission(id),
+    FOREIGN KEY (status_user) REFERENCES status_user(id),
+    FOREIGN KEY (nationnality) REFERENCES country(id),
+    FOREIGN KEY (fav_club) REFERENCES club(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 CREATE TABLE pronostics_questions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     text TEXT NOT NULL,
     date_limite DATETIME NOT NULL,
     response INT DEFAULT 0,
-    status INT DEFAULT 0,
-    FOREIGN KEY (status) REFERENCES status(id)
+    status_prediction INT DEFAULT 0,
+    FOREIGN KEY (status_prediction) REFERENCES status_prediction(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 CREATE TABLE prediction (
     id INT AUTO_INCREMENT PRIMARY KEY,

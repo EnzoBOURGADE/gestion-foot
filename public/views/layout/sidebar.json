@@ -1,0 +1,22 @@
+[
+  {
+    "label": "Dashboard",
+    "icon": "bi-speedometer2",
+    "url": "/admin/index.php"
+  },
+  {
+    "label": "Clubs",
+    "icon": "bi-flag",
+    "url": "/admin/club/list.php"
+  },
+  {
+    "label": "Pays",
+    "icon": "bi-globe",
+    "url": "/admin/country/list.php"
+  },
+  {
+    "label": "Coachs",
+    "icon": "bi-person-badge",
+    "url": "/admin/coach/list.php"
+  }
+]
