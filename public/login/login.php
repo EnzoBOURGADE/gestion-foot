@@ -1,6 +1,6 @@
 <?php
-require 'connect.php';
-require 'session.php';
+require './connect.php';
+require './session.php';
 
 $error = "";
 $showSuccess = isset($_GET['created']) && $_GET['created'] == 1;
@@ -9,18 +9,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE user_email = ?");
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$user || !password_verify($password, $user["user_password"])) {
+    if (!$user || !password_verify($password, $user["password"])) {
         $error = "Email ou mot de passe incorrect.";
     } else {
         $_SESSION["user"] = $user;
-        if ($user['user_permission'] == 2) {
-            header("Location: ../admin/player/index.php");
+        if ($user['permission'] == 2) {
+            header("Location: ../index.php");
         } else {
-            header("Location: ../user/player/index.php");
+            header("Location: ../index.php");
         }
         exit;
 
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
-<?php include '../layout/header.php'; ?>
+<?php include '../../templates/head.php'; ?>
 
 <div class="container mt-5">
     <div class="col-md-4 mx-auto">

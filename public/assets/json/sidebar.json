@@ -1,0 +1,25 @@
+{
+  "sidebar":
+  [
+    {
+      "title": "Accueil",
+      "url": "/index.php",
+      "icon": "bi-house"
+    },
+    {
+      "title": "Clubs",
+      "url": "/clubs/index.php",
+      "icon":"bi-people"
+    },
+    {
+      "title": "Pronostics",
+      "url": "/index.php",
+      "icon": "bi-bar-chart"
+    },
+    {
+      "title": "Classement",
+      "url": "/index.php",
+      "icon": "bi-trophy"
+    }
+  ]
+}
