@@ -9,7 +9,20 @@
     {
       "title": "Clubs",
       "url": "/clubs/index.php",
-      "icon":"bi-people"
+      "icon":"bi-people",
+      "children":
+      [
+        {
+          "title": "Ligue1",
+          "url": "/clubs/index.php",
+          "icon":"bi-people"
+        },
+        {
+          "title": "Liga",
+          "url": "/clubs/index.php",
+          "icon":"bi-people"
+        }
+      ]
     },
     {
       "title": "Pronostics",

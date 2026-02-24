@@ -1,11 +1,11 @@
 <?php
-require_once "../../login/connect.php";
-require_once "../../login/session.php";
+require_once "../../../login/connect.php";
+require_once "../../../login/session.php";
 
 check_login();
 
-require "../../../templates/head.php";
-require "../../../templates/sidebar.php";
+require "../../../../templates/head.php";
+require "../../../../templates/sidebar.php";
 
 ?>
 
@@ -13,7 +13,8 @@ require "../../../templates/sidebar.php";
 $stmt = $pdo->query("
     SELECT c.id, c.name, c.point, cou.name AS country_name FROM club c
     INNER JOIN country cou ON c.country_id = cou.id
-    ORDER BY cou.name, c.point DESC 
+    WHERE cou.name = 'Espagne'
+    ORDER BY c.point DESC 
     ");
 $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -21,7 +22,8 @@ $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <main class="flex-grow-1 bg-light p-4 overflow-auto">
 
         <div class="container mt-4">
-            <h1 class="text-center mb-4">Liste des clubs</h1>
+            <h1 class="text-center">Liste des clubs</h1>
+            <h2 class="text-center mb-4"> Ligue1 </h2>
 
             <?php if (isset($_SESSION['flash_message'])): ?>
                 <div class="alert alert-<?= $_SESSION['flash_type'] ?> alert-dismissible fade show" role="alert">
