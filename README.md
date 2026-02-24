@@ -1,4 +1,4 @@
 # Foot-web
 Appli pour les footeux
 
-http://gestion-foot.local/public/views/connect/login.php
+http://gestion-foot.local/public/login/login.php

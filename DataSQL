@@ -111,7 +111,7 @@ INSERT INTO country (name, continent_id) VALUES
 
 
 
-INSERT INTO club (name, country_id, point) VALUES
+INSERT INTO club (name, country_id, point, club_url ) VALUES
 ('FC Barcelone', (SELECT id FROM country WHERE name = 'Espagne'), 58),
 ('Real Madrid', (SELECT id FROM country WHERE name = 'Espagne'), 60),
 ('Atlético de Madrid', (SELECT id FROM country WHERE name = 'Espagne'), 45),
@@ -155,10 +155,10 @@ INSERT INTO club (name, country_id, point) VALUES
 
 
 
-INSERT INTO users (name, surname, username, nationnality, fav_club, email, birthday, password, permission_id, status_user)
+INSERT INTO users (name, surname, username, nationnality, fav_club, token, email, birthday, password, permission_id, status_user)
 VALUES
-('Admin', 'Admin', 'admin', (SELECT id FROM country WHERE name="France"), (SELECT id FROM club WHERE name="FC Barcelone"), 'admin@admin.fr', '1990-01-01', '$2b$12$f11hO12IFabYXP5QR0cSauOpj4J9PotbhT5Zn.Q0gpoILvHaRuX6.', 2, 1),
-('User', 'User', 'user', (SELECT id FROM country WHERE name="Espagne"), (SELECT id FROM club WHERE name="Real Madrid"), 'user@user.fr', '1995-05-15', '$2b$12$YMIJ/YtjCZC.Dk2nls3Smu6U2XyvlyU2wQVRnxycIMeZc7mkPm6.', 1, 1);
+('Admin', 'Admin', 'admin', (SELECT id FROM country WHERE name="France"), (SELECT id FROM club WHERE name="FC Barcelone"), 10, 'admin@admin.fr', '1990-01-01', '$2b$12$f11hO12IFabYXP5QR0cSauOpj4J9PotbhT5Zn.Q0gpoILvHaRuX6.', 2, 1),
+('User', 'User', 'user', (SELECT id FROM country WHERE name="Espagne"), (SELECT id FROM club WHERE name="Real Madrid"), 10, 'user@user.fr', '1995-05-15', '$2b$12$YMIJ/YtjCZC.Dk2nls3Smu6U2XyvlyU2wQVRnxycIMeZc7mkPm6.', 1, 1);
 
 
 INSERT INTO pronostics_questions (text, date_limite, response, status_prediction) VALUES

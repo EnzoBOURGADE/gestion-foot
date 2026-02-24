@@ -15,6 +15,9 @@
         }
         ?>
 
+
+
+    <div class="text-center">
         <div>
             <h4 class="mb-4">SideBar</h4>
             <nav class="nav flex-column">
@@ -30,16 +33,19 @@
                 <?php endforeach; ?>
             </nav>
         </div>
-
-        <div class="mt-auto text-center">
             <?php if(isset($_SESSION['user'])): ?>
-                <div class="dropdown">
-                    <button class="btn btn-dark rounded-circle p-2" type="button" id="profileMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/public/assets/profile-black.png" alt="Profil" style="width:40px; height:40px;">
+                <div class="dropdown mt-5">
+                    <button class="btn btn-dark p-2" type="button" id="profileMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user" style="font-size: 25px"></i>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileMenu">
+                    <ul class="dropdown-menu" aria-labelledby="profileMenu">
                         <li>
-                            <form action="/logout.php" method="post" class="m-0">
+                            <form action="" method="post" class="m-0">
+                                <button type="submit" class="dropdown-item"><?php echo $_SESSION['user']['username']?></button>
+                            </form>
+                        </li>
+                        <li>
+                            <form action="../../login/logout.php" method="post" class="m-0">
                                 <button type="submit" class="dropdown-item">Déconnexion</button>
                             </form>
                         </li>
@@ -48,10 +54,11 @@
             <?php else: ?>
                 <a href="/public/login/login.php">
                     <button class="btn btn-dark rounded-circle p-2">
-                        <img src="/public/assets/profile-black.png" alt="Profil" style="width:40px; height:40px;">
+                        <i class="fa-regular fa-circle-user" style="font-size: 25px"></i>
                     </button>
                 </a>
             <?php endif; ?>
+
         </div>
 
     </aside>

@@ -4,38 +4,52 @@ require 'connect.php';
 
 $error = "";
 
+$stmtNationality = $pdo->prepare("SELECT id, name FROM country ORDER BY name ASC");
+$stmtNationality->execute();
+$nationalities = $stmtNationality->fetchAll(PDO::FETCH_ASSOC);
+
+$stmtClub = $pdo->prepare("SELECT id, name FROM club ORDER BY name ASC");
+$stmtClub->execute();
+$clubs = $stmtClub->fetchAll(PDO::FETCH_ASSOC);
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $username = trim($_POST["username"]);
     $email = trim($_POST["email"]);
+    $name = trim($_POST["name"]);
+    $surname = trim($_POST["surname"]);
+    $birthday = trim($_POST["birthday"]);
+    $nationality = trim($_POST["nationnality"]);
+    $fav_club = trim($_POST["favClub"]);
     $password = $_POST["password"];
 
-    $stmt = $pdo->prepare("SELECT user_id FROM users WHERE user_email = ?");
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
+
     if ($stmt->fetch()) {
         $error = "Cet email est déjà utilisé.";
     } else {
-        // Hash du mot de passe
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        // Permission = 2 (Utilisateur)
         $stmt = $pdo->prepare("
-            INSERT INTO users (user_username, user_email, user_password, user_permission)
-            VALUES (?, ?, ?, 2)
+            INSERT INTO users (name, surname, username, nationnality, fav_club, token, email, birthday, password, permission_id, status_user)
+            VALUES (?, ?, ?, ?, ?, 20, ?, ?, ?, 1, 1)
         ");
 
-        $stmt->execute([$username, $email, $hash]);
+        $stmt->execute([$name, $surname, $username, $nationality, $fav_club, $email, $birthday, $hash]);
 
-        header("Location: login.php?created=1");
+        header("Location: ./login.php");
         exit;
     }
 }
 ?>
 
-<?php include '../layout/header.php'; ?>
+<?php
+    require "../../templates/head.php";
+?>
 
 <div class="container mt-5">
-    <div class="col-md-5 mx-auto">
+    <div class="col-md-7 mx-auto">
         <div class="card">
             <div class="card-header text-center">
                 <h4>Créer un compte</h4>
@@ -47,20 +61,71 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php endif; ?>
 
                 <form method="POST">
-
-                    <div class="mb-3">
-                        <label>Nom d'utilisateur</label>
-                        <input type="text" class="form-control" name="username" required>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-4 form-floating">
+                            <input type="text" class="form-control" name="name" value="<?= htmlspecialchars($_POST['name'] ?? '') ?>" placeholder="Nom" required>
+                            <label for="name">Nom</label>
+                        </div>
+                        <div class="col-md-4 form-floating">
+                            <input type="text" class="form-control" name="surname" value="<?= htmlspecialchars($_POST['surname'] ?? '') ?>" placeholder="Nom de famille" required>
+                            <label for="surname">Nom de famille</label>
+                        </div>
+                        <div class="col-md-4 form-floating">
+                            <input type="text" class="form-control" name="username" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>" placeholder="Pseudo" required>
+                            <label for="username">Nom d'utilisateur</label>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label>Email</label>
-                        <input type="email" class="form-control" name="email" required>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6 form-floating">
+                            <input type="email" class="form-control" name="email" id="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" placeholder="Email" required>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col-md-6 form-floating">
+                            <input type="date" class="form-control" name="birthday" id="birthday" value="<?= htmlspecialchars($_POST['birthday'] ?? '') ?>" placeholder="Date de naissance" required>
+                            <label for="birthday">Date de naissance</label>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label>Mot de passe</label>
-                        <input type="password" class="form-control" name="password" required>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6 form-floating">
+                            <select class="form-select" id="nationnality" name="nationnality">
+                                <option value="" disabled <?= empty($_POST['nationnality']) ? 'selected' : '' ?>>
+                                    --- Nationnalité ---
+                                </option>
+
+                                <?php foreach ($nationalities as $n) { ?>
+                                    <option value="<?= htmlspecialchars($n['id']) ?>"
+                                        <?= (($_POST['nationnality'] ?? '') === $n['name']) ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($n['name']) ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                            <label for="nationnality">Nationnalité</label>
+                        </div>
+
+                        <div class="col-md-6 form-floating">
+                            <select class="form-select" id="favClub" name="favClub">
+                                <option value="" disabled <?= empty($_POST['favClub']) ? 'selected' : '' ?>>
+                                    --- Club ---
+                                </option>
+
+                                <?php foreach ($clubs as $c) { ?>
+                                    <option value="<?= htmlspecialchars($c['id']) ?>"
+                                        <?= (($_POST['favClub'] ?? '') === $c['name']) ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($c['name']) ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                            <label for="favClub">Club Favori</label>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-12 form-floating">
+                            <input type="password" class="form-control" name="password" value="<?= htmlspecialchars($_POST['password'] ?? '') ?>" placeholder="Mot de passe" required>
+                            <label for="password">Mot de passe</label>
+                        </div>
                     </div>
 
                     <button class="btn btn-success w-100">Créer mon compte</button>

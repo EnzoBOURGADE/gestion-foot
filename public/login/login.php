@@ -17,10 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $error = "Email ou mot de passe incorrect.";
     } else {
         $_SESSION["user"] = $user;
-        if ($user['permission'] == 2) {
-            header("Location: ../index.php");
+        if ($user['permission_id'] == 2) {
+            header("Location: ../admin/index.php");
         } else {
-            header("Location: ../index.php");
+            header("Location: ../user/index.php");
         }
         exit;
 
