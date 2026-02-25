@@ -1,13 +1,12 @@
 <?php
-require_once "../../login/connect.php";
-require_once "../../login/session.php";
+require_once "../../../login/connect.php";
+require_once "../../../login/session.php";
 
 check_login();
 
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $name = $_POST['name'];
-$country_id = (int) $_POST['country_id'];
 $point = (int) $_POST['point'];
 
 
@@ -21,10 +20,10 @@ if ($is_edit) {
     $id = (int) $_POST['id'];
     $stmt = $pdo->prepare("
         UPDATE club
-        SET name = ?, country_id = ?, point = ?
+        SET name = ?, point = ?
         WHERE id = ?
     ");
-    $stmt->execute([$name, $country_id, $point, $id]);
+    $stmt->execute([$name, $point, $id]);
 
     $_SESSION['flash_message'] = "Le club a été mis à jour.";
     $_SESSION['flash_type'] = "success";
@@ -32,9 +31,9 @@ if ($is_edit) {
 } else {
     $stmt = $pdo->prepare("
         INSERT INTO club (name, country_id, point)
-        VALUES (?, ?, ?)
+        VALUES (?, (SELECT id FROM country WHERE name = 'France'), ?)
     ");
-    $stmt->execute([$name, $country_id, $point]);
+    $stmt->execute([$name, $point]);
 
     $_SESSION['flash_message'] = "Le club a été ajouté.";
     $_SESSION['flash_type'] = "success";

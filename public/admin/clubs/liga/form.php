@@ -1,11 +1,11 @@
 <?php
-require_once "../../login/connect.php";
-require_once "../../login/session.php";
+require_once "../../../login/connect.php";
+require_once "../../../login/session.php";
 
 check_login();
 
-require "../../../templates/head.php";
-require "../../../templates/sidebar.php";
+require "../../../../templates/head.php";
+require "../../../../templates/sidebar.php";
 
 ?>
 
@@ -51,20 +51,8 @@ $countries = $countries_stmt->fetchAll(PDO::FETCH_ASSOC);
                         <input type="number" name="point" class="form-control" value="<?= htmlspecialchars($club['point']) ?>" required>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Pays</label>
-                        <select name="country_id" class="form-select" required>
-                            <option value="">-- Choisir un pays --</option>
-                            <?php foreach ($countries as $n): ?>
-                                <option value="<?= $n['id'] ?>" <?= ($club['country_id'] == $n['id']) ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($n['name']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
                     <button type="submit" class="btn btn-success"><?= $is_edit ? "Enregistrer les modifications" : "Ajouter le club" ?></button>
-                    <a href="index.php" class="btn btn-secondary">Retour</a>
+                    <a href="./index.php" class="btn btn-secondary">Retour</a>
                 </form>
             </div>
         </div>

@@ -9,7 +9,6 @@ require "../../../../templates/sidebar.php";
 ?>
 
 <?php
-// Récupération des clubs d'Espagne
 $stmt1 = $pdo->query("
     SELECT c.id, c.name, c.point, cou.name AS country_name 
     FROM club c
@@ -19,15 +18,47 @@ $stmt1 = $pdo->query("
 ");
 $clubs = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
-// Récupération des matchs d'Espagne
+$today = new DateTime();
+$periodes = [
+    26 => ['2026-02-27', '2026-03-05'],
+    27 => ['2026-03-06', '2026-03-12'],
+    28 => ['2026-03-13', '2026-03-19'],
+    29 => ['2026-03-20', '2026-04-05'],
+];
+$champ_day = 25;
+foreach ($periodes as $numero => [$start, $end]) {
+    if ($today >= new DateTime($start) && $today <= new DateTime($end)) {
+        $champ_day = $numero;
+        break;
+    }
+}
+
 $stmt2 = $pdo->query("
-    SELECT cl1.name AS club1, cl2.name AS club2, m.score1, m.score2, m.date_match, m.hour_match, m.updated_at
-    FROM matchs m
-    INNER JOIN club cl1 ON m.club1 = cl1.id
-    INNER JOIN club cl2 ON m.club2 = cl2.id
-    INNER JOIN country cou ON cl1.country_id = cou.id
-    WHERE cou.name = 'Espagne'
-    ORDER BY m.date_match DESC, m.hour_match DESC
+    SELECT 
+    cl1.name AS club1, 
+    cl2.name AS club2, 
+    m.score1, 
+    m.score2, 
+    m.date_match, 
+    m.hour_match, 
+    m.updated_at
+FROM matchs m
+INNER JOIN club cl1 ON m.club1 = cl1.id
+INNER JOIN club cl2 ON m.club2 = cl2.id
+INNER JOIN country cou ON cl1.country_id = cou.id
+WHERE cou.name = 'Espagne'
+ORDER BY 
+    CASE 
+        WHEN NOW() BETWEEN 
+            CONCAT(m.date_match, ' ', m.hour_match)
+            AND DATE_ADD(CONCAT(m.date_match, ' ', m.hour_match), INTERVAL 2 HOUR)
+        THEN 1
+        WHEN NOW() < CONCAT(m.date_match, ' ', m.hour_match)
+        THEN 2
+        ELSE 3
+    END,
+    m.date_match ASC,
+    m.hour_match ASC;
 ");
 $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -124,6 +155,7 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="card-body overflow-auto" style="max-height: 75vh;">
             <div class="row g-3">
+                <h4> Journée <?= $champ_day ?>/38 </h4>
                 <?php foreach ($matchs as $m):
                     $score1 = isset($m['score1']) ? htmlspecialchars($m['score1']) : "?";
                     $score2 = isset($m['score2']) ? htmlspecialchars($m['score2']) : "?";

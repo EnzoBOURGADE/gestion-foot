@@ -8,18 +8,17 @@
     },
     {
       "title": "Clubs",
-      "url": "/clubs/index.php",
       "icon":"bi-people",
       "children":
       [
         {
           "title": "Ligue1",
-          "url": "/clubs/index.php",
+          "url": "/clubs/ligue1/index.php",
           "icon":"bi-people"
         },
         {
           "title": "Liga",
-          "url": "/clubs/index.php",
+          "url": "/clubs/liga/index.php",
           "icon":"bi-people"
         }
       ]

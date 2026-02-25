@@ -37,15 +37,11 @@
 
                         <div class="d-flex justify-content-between align-items-center w-50">
 
-                            <a class="nav-link text-white px-0 d-flex align-items-center flex-grow-1"
-                               href="/public/<?= $prefix . $item['url'] ?>">
-
                                 <?php if (!empty($item['icon'])): ?>
                                     <i class="bi <?= htmlspecialchars($item['icon']) ?> me-2"></i>
                                 <?php endif; ?>
 
                                 <?= htmlspecialchars($item['title']) ?>
-                            </a>
 
                             <button class="btn btn-sm text-white"
                                     data-bs-toggle="collapse"

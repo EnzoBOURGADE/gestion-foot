@@ -166,10 +166,41 @@ INSERT INTO pronostics_questions (text, date_limite, response, status_prediction
 ("Combien d'arrêts le gardien de Barcelone va faire dans ce match ?", "2026-02-22 16:15:00", 0, (SELECT id FROM status_prediction WHERE name="open"));
 
 
+INSERT INTO matchs (club1, club2, date_match, hour_match)
+VALUES
+((SELECT id FROM club WHERE name = "Stade Rennais"), (SELECT id FROM club WHERE name = "Toulouse"), '2026-02-28', '17:00:00'),
+((SELECT id FROM club WHERE name = "Monaco"), (SELECT id FROM club WHERE name = "Angers"), '2026-02-28', '19:00:00'),
+((SELECT id FROM club WHERE name = "Le Havre"), (SELECT id FROM club WHERE name = "Paris Saint-Germain"), '2026-02-28', '21:05:00'),
+((SELECT id FROM club WHERE name = "Paris FC"), (SELECT id FROM club WHERE name = "Nice"), '2026-03-01', '15:00:00'),
+((SELECT id FROM club WHERE name = "Lorient"), (SELECT id FROM club WHERE name = "Auxerre"), '2026-03-01', '17:15:00'),
+((SELECT id FROM club WHERE name = "LOSC Lille"), (SELECT id FROM club WHERE name = "Nantes"), '2026-03-01', '17:15:00'),
+((SELECT id FROM club WHERE name = "Metz"), (SELECT id FROM club WHERE name = "Brest"), '2026-03-01', '17:15:00'),
+((SELECT id FROM club WHERE name = "Olympique de Marseille"), (SELECT id FROM club WHERE name = "Olympique lyonnais"), '2026-03-01', '20:45:00'),
+((SELECT id FROM club WHERE name = "Paris Saint-Germain"), (SELECT id FROM club WHERE name = "Monaco"), '2026-03-06', '20:45:00'),
+((SELECT id FROM club WHERE name = "Nantes"), (SELECT id FROM club WHERE name = "Angers"), '2026-03-07', '17:00:00'),
+((SELECT id FROM club WHERE name = "Auxerre"), (SELECT id FROM club WHERE name = "RC Strasbourg"), '2026-03-07', '19:00:00'),
+((SELECT id FROM club WHERE name = "Toulouse"), (SELECT id FROM club WHERE name = "Olympique de Marseille"), '2026-03-07', '21:05:00'),
+((SELECT id FROM club WHERE name = "RC Lens"), (SELECT id FROM club WHERE name = "Metz"), '2026-03-08', '15:00:00'),
+((SELECT id FROM club WHERE name = "LOSC Lille"), (SELECT id FROM club WHERE name = "Lorient"), '2026-03-08', '17:15:00'),
+((SELECT id FROM club WHERE name = "Brest"), (SELECT id FROM club WHERE name = "Le Havre"), '2026-03-08', '17:15:00'),
+((SELECT id FROM club WHERE name = "Nice"), (SELECT id FROM club WHERE name = "Stade Rennais"), '2026-03-08', '17:15:00'),
+((SELECT id FROM club WHERE name = "Olympique lyonnais"), (SELECT id FROM club WHERE name = "Paris FC"), '2026-03-08', '20:45:00'),
+
+
+((SELECT id FROM club WHERE name = "Levante"), (SELECT id FROM club WHERE name = "Deportivo Alaves"), '2026-02-27', '21:00:00'),
+((SELECT id FROM club WHERE name = "Rayo Vallecano"), (SELECT id FROM club WHERE name = "Athletic Club Bilbao"), '2026-02-28', '14:00:00'),
+((SELECT id FROM club WHERE name = "FC Barcelone"), (SELECT id FROM club WHERE name = "Villarreal"), '2026-02-28', '16:15:00'),
+((SELECT id FROM club WHERE name = "Majorque"), (SELECT id FROM club WHERE name = "Real Sociedad"), '2026-02-28', '18:30:00'),
+((SELECT id FROM club WHERE name = "Real Oviedo"), (SELECT id FROM club WHERE name = "Atlético de Madrid"), '2026-02-28', '21:00:00'),
+((SELECT id FROM club WHERE name = "Elche"), (SELECT id FROM club WHERE name = "Espanyol de Barcelone"), '2026-03-01', '14:00:00'),
+((SELECT id FROM club WHERE name = "Valence"), (SELECT id FROM club WHERE name = "Osasuna"), '2026-03-01', '16:15:00'),
+((SELECT id FROM club WHERE name = "Real Betis"), (SELECT id FROM club WHERE name = "Séville"), '2026-03-01', '18:30:00'),
+((SELECT id FROM club WHERE name = "Girona"), (SELECT id FROM club WHERE name = "Celta de Vigo"), '2026-03-01', '21:00:00'),
+((SELECT id FROM club WHERE name = "Real Madrid"), (SELECT id FROM club WHERE name = "Getafe"), '2026-03-02', '21:00:00');
+
 
 
 DELIMITER $$
-
 CREATE TRIGGER update_club_points
 AFTER UPDATE ON matchs
 FOR EACH ROW
@@ -194,5 +225,27 @@ BEGIN
 
     END IF;
 END$$
+DELIMITER ;
 
+
+
+DELIMITER $$
+CREATE TRIGGER clean_old_matchs
+AFTER INSERT ON matchs
+FOR EACH ROW
+BEGIN
+    DELETE FROM matchs
+    WHERE date_match <= DATE_SUB(CURDATE(), INTERVAL 1 MONTH);
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER clean_old_matchs_update
+AFTER UPDATE ON matchs
+FOR EACH ROW
+BEGIN
+    DELETE FROM matchs
+    WHERE date_match <= DATE_SUB(CURDATE(), INTERVAL 1 MONTH);
+END$$
 DELIMITER ;
