@@ -165,3 +165,34 @@ INSERT INTO pronostics_questions (text, date_limite, response, status_prediction
 ("Combien de fois Kylian Mbappé va tomber par terre dans ce match ?", "2026-02-21 18:30:00", 0, (SELECT id FROM status_prediction WHERE name="open")),
 ("Combien d'arrêts le gardien de Barcelone va faire dans ce match ?", "2026-02-22 16:15:00", 0, (SELECT id FROM status_prediction WHERE name="open"));
 
+
+
+
+DELIMITER $$
+
+CREATE TRIGGER update_club_points
+AFTER UPDATE ON matchs
+FOR EACH ROW
+BEGIN
+    IF NEW.score1 IS NOT NULL AND NEW.score2 IS NOT NULL THEN
+
+        IF NEW.score1 > NEW.score2 THEN
+            UPDATE club
+            SET point = point + 3
+            WHERE id = NEW.equipe1;
+
+        ELSEIF NEW.score2 > NEW.score1 THEN
+            UPDATE club
+            SET point = point + 3
+            WHERE id = NEW.equipe2;
+
+        ELSE
+            UPDATE club
+            SET point = point + 1
+            WHERE id IN (NEW.equipe1, NEW.equipe2);
+        END IF;
+
+    END IF;
+END$$
+
+DELIMITER ;

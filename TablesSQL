@@ -93,3 +93,18 @@ CREATE TABLE prediction (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (pronostic_id) REFERENCES pronostics_questions(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE matchs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    equipe1 INT NOT NULL,
+    equipe2 INT NOT NULL,
+    date_match DATE,
+    hour_match TIME,
+    score1 INT DEFAULT NULL,
+    score2 INT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (equipe1) REFERENCES club(id),
+    FOREIGN KEY (equipe2) REFERENCES club(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

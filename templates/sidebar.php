@@ -1,4 +1,4 @@
-<aside class="col-2 bg-dark text-white p-3 d-flex flex-column justify-content-between position-fixed vh-100">
+<aside class="col-1 bg-dark text-white p-3 d-flex flex-column justify-content-between position-fixed vh-100">
 
     <?php
     $sidebarJson = file_get_contents(ROOT . '/public/assets/json/sidebar.json');
@@ -20,7 +20,6 @@
 
     <div class="d-flex flex-column h-100">
 
-        <!-- HEADER -->
         <div>
             <h4 class="mb-4 text-center">SideBar</h4>
 
@@ -36,9 +35,8 @@
 
                     <div class="nav-item">
 
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center w-50">
 
-                            <!-- Lien principal cliquable -->
                             <a class="nav-link text-white px-0 d-flex align-items-center flex-grow-1"
                                href="/public/<?= $prefix . $item['url'] ?>">
 
@@ -49,7 +47,6 @@
                                 <?= htmlspecialchars($item['title']) ?>
                             </a>
 
-                            <!-- Bouton collapse -->
                             <button class="btn btn-sm text-white"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#<?= $collapseId ?>"
@@ -60,7 +57,6 @@
 
                         </div>
 
-                        <!-- Sous-menu -->
                         <div class="collapse ps-3" id="<?= $collapseId ?>">
                             <?php foreach ($item['children'] as $child): ?>
                                 <a class="nav-link text-white px-0"
@@ -96,7 +92,6 @@
             </nav>
         </div>
 
-        <!-- FOOTER (PROFILE) -->
         <div>
             <?php if (isset($_SESSION['user'])): ?>
 
@@ -127,7 +122,7 @@
             <?php else: ?>
 
                 <a href="/public/login/login.php" class="btn btn-dark w-100">
-                    <i class="fa-regular fa-circle-user me-2"></i>
+                    <i class="fa-regular fa-circle-user"></i>
                     Connexion
                 </a>
 
