@@ -26,8 +26,6 @@ if ($is_edit) {
     if (!$club) die("Club introuvable.");
 }
 
-$countries_stmt = $pdo->query("SELECT id, name FROM country ORDER BY name");
-$countries = $countries_stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="container mt-4">
