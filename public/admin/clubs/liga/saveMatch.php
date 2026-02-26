@@ -25,10 +25,14 @@ if ($is_edit) {
     $id = (int) $_POST['id'];
     $stmt = $pdo->prepare("
         UPDATE matchs
-        SET score1 = ?, score2 = ?, date_match = ?, hour_match = ?
+        SET club1 = ?, club2 = ?, score1 = ?, score2 = ?, date_match = ?, hour_match = ?
         WHERE id = ?
     ");
-    $stmt->execute([$score1, $score2, $date_match,  $hour_match, $id]);
+    if($score1 == "" || $score2 == "") {
+        $score1 = null;
+        $score2 = null;
+    }
+    $stmt->execute([$club1, $club2, $score1, $score2, $date_match,  $hour_match, $id]);
 
     $_SESSION['flash_message2'] = "Le match a été mis à jour.";
     $_SESSION['flash_type'] = "success";
