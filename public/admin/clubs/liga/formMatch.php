@@ -44,7 +44,7 @@ $clubs = $clubsStmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="card-body">
                 <form action="saveMatch.php" method="POST">
                     <?php if ($is_edit): ?>
-                        <input type="hidden" name="id" value="<?= $match['id'] ?>">
+                        <input type="hidden" name="id" value="<?= $id ?>">
                     <?php endif; ?>
 
                     <div class="row align-items-end mb-4 text-center">

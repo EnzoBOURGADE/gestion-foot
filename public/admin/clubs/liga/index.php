@@ -35,6 +35,7 @@ foreach ($periodes as $numero => [$start, $end]) {
 
 $stmt2 = $pdo->query("
     SELECT 
+    m.id,
     cl1.name AS club1, 
     cl2.name AS club2, 
     m.score1, 
@@ -189,6 +190,13 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                     <span class="badge <?= $color_state ?> me-2"><?= $state ?></span>
                                 </div>
                                 <h3 class="display-6"><?= $score1 ?> <span class="text-muted">-</span> <?= $score2 ?></h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-center mb-3">
+                                    <a href="formMatch.php?id=<?= $m['id'] ?>" class="btn btn-sm btn-warning" title="Modifier">
+                                        Modifier le match
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
