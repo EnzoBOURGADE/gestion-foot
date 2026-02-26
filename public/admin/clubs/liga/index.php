@@ -72,13 +72,13 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                 <h1 class="text-center">Liste des clubs</h1>
                 <h2 class="text-center mb-4">Liga</h2>
 
-                <?php if (isset($_SESSION['flash_message'])): ?>
+                <?php if (isset($_SESSION['flash_message1'])): ?>
                     <div class="alert alert-<?= $_SESSION['flash_type'] ?> alert-dismissible fade show" role="alert">
-                        <?= $_SESSION['flash_message'] ?>
+                        <?= $_SESSION['flash_message1'] ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                     <?php
-                    unset($_SESSION['flash_message']);
+                    unset($_SESSION['flash_message1']);
                     unset($_SESSION['flash_type']);
                     ?>
                 <?php endif; ?>
@@ -134,19 +134,19 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                 <h1 class="text-center">Prochains matchs</h1>
                 <h2 class="text-center mb-4">Liga</h2>
 
-                <?php if (isset($_SESSION['flash_message'])): ?>
+                <?php if (isset($_SESSION['flash_message2'])): ?>
                     <div class="alert alert-<?= $_SESSION['flash_type'] ?> alert-dismissible fade show" role="alert">
-                        <?= $_SESSION['flash_message'] ?>
+                        <?= $_SESSION['flash_message2'] ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                     <?php
-                    unset($_SESSION['flash_message']);
+                    unset($_SESSION['flash_message2']);
                     unset($_SESSION['flash_type']);
                     ?>
                 <?php endif; ?>
 
                 <div class="text-center mb-3">
-                    <a href="form.php" class="btn btn-success">
+                    <a href="formMatch.php" class="btn btn-success">
                         <i class="bi bi-plus-circle"></i> Ajouter un match
                     </a>
                 </div>

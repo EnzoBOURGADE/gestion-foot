@@ -210,17 +210,17 @@ BEGIN
         IF NEW.score1 > NEW.score2 THEN
             UPDATE club
             SET point = point + 3
-            WHERE id = NEW.equipe1;
+            WHERE id = NEW.club1;
 
         ELSEIF NEW.score2 > NEW.score1 THEN
             UPDATE club
             SET point = point + 3
-            WHERE id = NEW.equipe2;
+            WHERE id = NEW.club2;
 
         ELSE
             UPDATE club
             SET point = point + 1
-            WHERE id IN (NEW.equipe1, NEW.equipe2);
+            WHERE id IN (NEW.club1, NEW.club2);
         END IF;
 
     END IF;
@@ -231,18 +231,7 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE TRIGGER clean_old_matchs
-AFTER INSERT ON matchs
-FOR EACH ROW
-BEGIN
-    DELETE FROM matchs
-    WHERE date_match <= DATE_SUB(CURDATE(), INTERVAL 1 MONTH);
-END$$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE TRIGGER clean_old_matchs_update
-AFTER UPDATE ON matchs
+AFTER UPDATE ON club
 FOR EACH ROW
 BEGIN
     DELETE FROM matchs

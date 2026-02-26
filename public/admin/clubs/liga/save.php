@@ -25,7 +25,7 @@ if ($is_edit) {
     ");
     $stmt->execute([$name, $point, $id]);
 
-    $_SESSION['flash_message'] = "Le club a été mis à jour.";
+    $_SESSION['flash_message1'] = "Le club a été mis à jour.";
     $_SESSION['flash_type'] = "success";
 
 } else {
@@ -35,7 +35,7 @@ if ($is_edit) {
     ");
     $stmt->execute([$name, $point]);
 
-    $_SESSION['flash_message'] = "Le club a été ajouté.";
+    $_SESSION['flash_message1'] = "Le club a été ajouté.";
     $_SESSION['flash_type'] = "success";
 }
 
