@@ -20,10 +20,12 @@ $clubs = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
 $today = new DateTime();
 $periodes = [
-    24 => ['2026-02-27', '2026-03-05'],
-    25 => ['2026-03-06', '2026-03-08']
+    26 => ['2026-02-27', '2026-03-05'],
+    27 => ['2026-03-06', '2026-03-12'],
+    28 => ['2026-03-13', '2026-03-19'],
+    29 => ['2026-03-20', '2026-04-05'],
 ];
-$champ_day = 23;
+$champ_day = 25;
 foreach ($periodes as $numero => [$start, $end]) {
     if ($today >= new DateTime($start) && $today <= new DateTime($end)) {
         $champ_day = $numero;
@@ -33,6 +35,7 @@ foreach ($periodes as $numero => [$start, $end]) {
 
 $stmt2 = $pdo->query("
     SELECT 
+    m.id,
     cl1.name AS club1, 
     cl2.name AS club2, 
     m.score1, 
@@ -68,15 +71,15 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         <div class="card-header">
             <div class="container mt-4">
                 <h1 class="text-center">Liste des clubs</h1>
-                <h2 class="text-center mb-4">Ligue1</h2>
+                <h2 class="text-center mb-4">Ligue 1</h2>
 
-                <?php if (isset($_SESSION['flash_message'])): ?>
+                <?php if (isset($_SESSION['flash_message1'])): ?>
                     <div class="alert alert-<?= $_SESSION['flash_type'] ?> alert-dismissible fade show" role="alert">
-                        <?= $_SESSION['flash_message'] ?>
+                        <?= $_SESSION['flash_message1'] ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                     <?php
-                    unset($_SESSION['flash_message']);
+                    unset($_SESSION['flash_message1']);
                     unset($_SESSION['flash_type']);
                     ?>
                 <?php endif; ?>
@@ -130,21 +133,21 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         <div class="card-header">
             <div class="container mt-4">
                 <h1 class="text-center">Prochains matchs</h1>
-                <h2 class="text-center mb-4">Ligue1</h2>
+                <h2 class="text-center mb-4">Ligue 1</h2>
 
-                <?php if (isset($_SESSION['flash_message'])): ?>
+                <?php if (isset($_SESSION['flash_message2'])): ?>
                     <div class="alert alert-<?= $_SESSION['flash_type'] ?> alert-dismissible fade show" role="alert">
-                        <?= $_SESSION['flash_message'] ?>
+                        <?= $_SESSION['flash_message2'] ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                     <?php
-                    unset($_SESSION['flash_message']);
+                    unset($_SESSION['flash_message2']);
                     unset($_SESSION['flash_type']);
                     ?>
                 <?php endif; ?>
 
                 <div class="text-center mb-3">
-                    <a href="form.php" class="btn btn-success">
+                    <a href="formMatch.php" class="btn btn-success">
                         <i class="bi bi-plus-circle"></i> Ajouter un match
                     </a>
                 </div>
@@ -153,7 +156,7 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="card-body overflow-auto" style="max-height: 75vh;">
             <div class="row g-3">
-                <h4> Journée <?= $champ_day ?>/34 </h4>
+                <h4> Journée <?= $champ_day ?>/38 </h4>
                 <?php foreach ($matchs as $m):
                     $score1 = isset($m['score1']) ? htmlspecialchars($m['score1']) : "?";
                     $score2 = isset($m['score2']) ? htmlspecialchars($m['score2']) : "?";
@@ -187,6 +190,13 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                     <span class="badge <?= $color_state ?> me-2"><?= $state ?></span>
                                 </div>
                                 <h3 class="display-6"><?= $score1 ?> <span class="text-muted">-</span> <?= $score2 ?></h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-center mb-3">
+                                    <a href="formMatch.php?id=<?= $m['id'] ?>" class="btn btn-sm btn-warning" title="Modifier">
+                                        Modifier le match
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
