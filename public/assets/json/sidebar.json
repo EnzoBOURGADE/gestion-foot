@@ -30,7 +30,7 @@
     },
     {
       "title": "Classement",
-      "url": "/index.php",
+      "url": "/classement/index.php",
       "icon": "bi-trophy"
     }
   ]

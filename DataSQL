@@ -186,7 +186,6 @@ VALUES
 ((SELECT id FROM club WHERE name = "Nice"), (SELECT id FROM club WHERE name = "Stade Rennais"), '2026-03-08', '17:15:00'),
 ((SELECT id FROM club WHERE name = "Olympique lyonnais"), (SELECT id FROM club WHERE name = "Paris FC"), '2026-03-08', '20:45:00'),
 
-
 ((SELECT id FROM club WHERE name = "Levante"), (SELECT id FROM club WHERE name = "Deportivo Alaves"), '2026-02-27', '21:00:00'),
 ((SELECT id FROM club WHERE name = "Rayo Vallecano"), (SELECT id FROM club WHERE name = "Athletic Club Bilbao"), '2026-02-28', '14:00:00'),
 ((SELECT id FROM club WHERE name = "FC Barcelone"), (SELECT id FROM club WHERE name = "Villarreal"), '2026-02-28', '16:15:00'),
