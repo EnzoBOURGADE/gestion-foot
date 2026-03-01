@@ -4,8 +4,9 @@ require_once "../../../login/session.php";
 
 check_login();
 
-require "../../../../templates/head.php";
+require "../../../../config/getTeams.php";
 require "../../../../templates/sidebar.php";
+require "../../../../templates/head.php";
 ?>
 
 <?php
@@ -62,7 +63,7 @@ ORDER BY
 $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<main class="d-flex flex-wrap gap-3 p-4" style="height: 100vh; overflow: hidden; width: 83%">
+<main class="d-flex flex-wrap gap-3 p-4" style="height: 100vh; overflow: hidden; width: 100%">
 
     <!-- Liste des clubs -->
     <div class="card flex-grow-1" style="width: 40%; max-height: 95vh;">
@@ -155,7 +156,9 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         <div class="card-body overflow-auto" style="max-height: 75vh;">
             <div class="row g-3">
                 <h4> Journée <?= $champ_day ?>/38 </h4>
-                <?php foreach ($matchs as $m):
+                <?php
+                $matchsEnded = [];
+                foreach ($matchs as $m):
                     $score1 = isset($m['score1']) ? htmlspecialchars($m['score1']) : "?";
                     $score2 = isset($m['score2']) ? htmlspecialchars($m['score2']) : "?";
                     $match_hour = (new DateTime($m['hour_match']))->format('H\hi');
@@ -171,11 +174,15 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                     } elseif ($now >= $matchDateTime && $now <= $matchEndTime) {
                         $state = "en direct";
                         $color_state = "bg-success";
-                    } else {
+                    } elseif ($now <= $matchDateTime || $now >= $matchEndTime) {
+                        if($m["score1"] == "" || $m["score2"] == "") {
+                            $matchsEnded[] = $m;
+                        }
                         $state = "fini";
                         $color_state = "bg-danger";
                     }
                     ?>
+
                     <div class="col-md-6">
                         <div class="card shadow-sm h-100">
                             <div class="card-header text-center bg-primary text-white">
@@ -198,7 +205,33 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                <?php endforeach;
+                if(count($matchsEnded) > 0) {
+                    foreach($matchsEnded as $m) {
+                        $club_name1 = $m['club1'];
+                        $club_name2 = $m['club2'];
+
+                        $clubRequest = $pdo->prepare("
+                        SELECT api_name FROM club
+                        WHERE name = ?
+                        ");
+
+                        $clubRequest->execute([$club_name1]);
+                        $club_api1 = $clubRequest->fetch(PDO::FETCH_ASSOC)['api_name'] ?? null;
+
+                        $clubRequest->execute([$club_name2]);
+                        $club_api2 = $clubRequest->fetch(PDO::FETCH_ASSOC)['api_name'] ?? null;
+
+                        if ($club_api1 && $club_api2) {
+                            $score = getScoreByMatch($m['date_match'], $club_api1, $club_api2, "FL1");
+
+                            if ($score !== null) {
+                                majScoreMatch($pdo, $m['id'], $score['score_home'], $score['score_away']);
+                            }
+                        }
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>
