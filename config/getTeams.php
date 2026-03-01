@@ -55,10 +55,6 @@ function getScoreByMatch($date, $club1, $club2, $champ) {
 
 
 function majScoreMatch($pdo, $id, $score1, $score2) {
-    echo "<pre>DEBUG:\n";
-    var_dump($id, $score1, $score2);
-    echo "</pre>";
-
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $pdo->prepare("
         UPDATE matchs
@@ -66,6 +62,4 @@ function majScoreMatch($pdo, $id, $score1, $score2) {
         WHERE id = ?
     ");
     $stmt->execute([$score1, $score2, $id]);
-
-    echo "Nombre de lignes affectées : " . $stmt->rowCount() . "<br>";
 }
