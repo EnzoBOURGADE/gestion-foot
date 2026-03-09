@@ -131,4 +131,4 @@
 
 </aside>
 
-<div class="flex-grow-1" style="margin-left: 16.6667%">
+<div class="flex-grow-1" style="margin-left: 16.6667%;">

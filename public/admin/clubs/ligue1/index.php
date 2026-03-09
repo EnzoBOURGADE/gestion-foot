@@ -207,6 +207,7 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 <?php endforeach;
                 if(count($matchsEnded) > 0) {
+                    $matchApi = [];
                     foreach($matchsEnded as $m) {
                         $club_name1 = $m['club1'];
                         $club_name2 = $m['club2'];
@@ -222,13 +223,15 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                         $clubRequest->execute([$club_name2]);
                         $club_api2 = $clubRequest->fetch(PDO::FETCH_ASSOC)['api_name'] ?? null;
 
-                        if ($club_api1 && $club_api2) {
-                            $score = getScoreByMatch($m['date_match'], $club_api1, $club_api2, "FL1");
-
-                            if ($score !== null) {
-                                majScoreMatch($pdo, $m['id'], $score['score_home'], $score['score_away']);
-                            }
-                        }
+                        $matchApi[] = [
+                            'club1' => $club_api1,
+                            'club2' => $club_api2,
+                            'date'  => $m['date_match']
+                        ];
+                    }
+                    $scoresByMatch = getScore($matchApi, "PD");
+                    foreach ($scoresByMatch as $score) {
+                        majScoreMatch($pdo, $score['id'], $score['score_home'], $score['score_away']);
                     }
                 }
                 ?>
