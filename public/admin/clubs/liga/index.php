@@ -19,17 +19,22 @@ $stmt1 = $pdo->query("
 ");
 $clubs = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
+$stmtDate = $pdo->query("
+    SELECT the_day, date_begin, date_end, competition
+    FROM day_compet
+    WHERE competition = 'PD'
+");
+
+$periodesTrue = $stmtDate->fetchAll(PDO::FETCH_ASSOC);
+
 $today = new DateTime();
-$periodes = [
-    26 => ['2026-02-27', '2026-03-05'],
-    27 => ['2026-03-06', '2026-03-12'],
-    28 => ['2026-03-13', '2026-03-19'],
-    29 => ['2026-03-20', '2026-04-05'],
-];
-$champ_day = 25;
-foreach ($periodes as $numero => [$start, $end]) {
-    if ($today >= new DateTime($start) && $today <= new DateTime($end)) {
-        $champ_day = $numero;
+$champ_day = 1;
+
+foreach ($periodesTrue as $periode) {
+    $start = new DateTime($periode['date_begin']);
+    if ($today >= $start) {
+        $champ_day = (int)$periode['the_day'];
+    } else {
         break;
     }
 }

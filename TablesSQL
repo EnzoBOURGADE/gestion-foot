@@ -108,3 +108,11 @@ CREATE TABLE matchs (
     FOREIGN KEY (equipe1) REFERENCES club(id),
     FOREIGN KEY (equipe2) REFERENCES club(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE day_compet (
+    the_day INT NOT NULL,
+    date_begin DATE,
+    date_end Date,
+    competition VARCHAR(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

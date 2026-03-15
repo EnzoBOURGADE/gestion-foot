@@ -19,15 +19,22 @@ $stmt1 = $pdo->query("
 ");
 $clubs = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
+$stmtDate = $pdo->query("
+    SELECT the_day, date_begin, date_end, competition
+    FROM day_compet
+    WHERE competition = 'FL1'
+");
+
+$periodesTrue = $stmtDate->fetchAll(PDO::FETCH_ASSOC);
+
 $today = new DateTime();
-$periodes = [
-    26 => ['2026-03-12', '2026-03-21'],
-    27 => ['2026-03-22', '2026-04-04'],
-];
-$champ_day = 25;
-foreach ($periodes as $numero => [$start, $end]) {
-    if ($today >= new DateTime($start) && $today <= new DateTime($end)) {
-        $champ_day = $numero;
+$champ_day = 1;
+
+foreach ($periodesTrue as $periode) {
+    $start = new DateTime($periode['date_begin']);
+    if ($today >= $start) {
+        $champ_day = (int)$periode['the_day'];
+    } else {
         break;
     }
 }
@@ -70,6 +77,7 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         <div class="card-header">
             <div class="container mt-4">
                 <h1 class="text-center">Liste des clubs</h1>
+                <?php print_r($today); ?>
                 <h2 class="text-center mb-4">Ligue 1</h2>
 
                 <?php if (isset($_SESSION['flash_message1'])): ?>
@@ -229,7 +237,7 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                             'date'  => $m['date_match']
                         ];
                     }
-                    $scoresByMatch = getScore($matchApi, "PD");
+                    $scoresByMatch = getScore($matchApi, "FL1");
                     foreach ($scoresByMatch as $score) {
                         majScoreMatch($pdo, $score['id'], $score['score_home'], $score['score_away']);
                     }

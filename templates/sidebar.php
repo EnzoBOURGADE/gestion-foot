@@ -1,7 +1,9 @@
 <aside class="col-1 bg-dark text-white p-3 d-flex flex-column justify-content-between position-fixed vh-100">
 
     <?php
-    define('ROOT', dirname(__DIR__));
+    if (!defined('ROOT')) {
+        define('ROOT', dirname(__DIR__));
+    }
 
     $sidebarJson = file_get_contents(ROOT . '/public/assets/json/sidebar.json');
     $sidebarData = json_decode($sidebarJson, true);
