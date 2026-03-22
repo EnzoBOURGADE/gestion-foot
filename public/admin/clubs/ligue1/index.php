@@ -77,7 +77,6 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         <div class="card-header">
             <div class="container mt-4">
                 <h1 class="text-center">Liste des clubs</h1>
-                <?php print_r($today); ?>
                 <h2 class="text-center mb-4">Ligue 1</h2>
 
                 <?php if (isset($_SESSION['flash_message1'])): ?>
@@ -237,7 +236,7 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                             'date'  => $m['date_match']
                         ];
                     }
-                    $scoresByMatch = getScore($matchApi, "FL1");
+                    $scoresByMatch = getScore($pdo, $matchApi, "FL1");
                     foreach ($scoresByMatch as $score) {
                         majScoreMatch($pdo, $score['id'], $score['score_home'], $score['score_away']);
                     }

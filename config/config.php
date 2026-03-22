@@ -10,7 +10,6 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
     define('DB_USER', '');
     define('DB_PASS', '');
 }
-define('ROOT', dirname(__DIR__));
 
 try {
     $pdo = new PDO('mysql:host=localhost;dbname=footdb;charset=utf8', 'root', '');

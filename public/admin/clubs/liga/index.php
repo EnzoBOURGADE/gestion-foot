@@ -236,7 +236,7 @@ $matchs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                             'date'  => $m['date_match']
                         ];
                     }
-                    $scoresByMatch = getScore($matchApi, "PD");
+                    $scoresByMatch = getScore($pdo, $matchApi, "PD");
                     foreach ($scoresByMatch as $score) {
                         majScoreMatch($pdo, $score['id'], $score['score_home'], $score['score_away']);
                     }

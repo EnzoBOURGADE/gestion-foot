@@ -13,12 +13,12 @@ require "../../../../templates/sidebar.php";
 
 $is_edit = isset($_GET['id']) && is_numeric($_GET['id']);
 $match = [
-'club1' => '',
-'club2' => '',
-'score1' => '',
-'score2' => '',
-'hour_match' => '',
-'date_match' => ''
+    'club1' => '',
+    'club2' => '',
+    'score1' => '',
+    'score2' => '',
+    'hour_match' => '',
+    'date_match' => ''
 ];
 
 if ($is_edit) {
@@ -114,8 +114,8 @@ $clubs = $clubsStmt->fetchAll(PDO::FETCH_ASSOC);
                             <input type="time" name="hour_match" class="form-control" value="<?= htmlspecialchars($match['hour_match']) ?>" required>
                         </div>
                     </div>
-                        <button type="submit" class="btn btn-success"><?= $is_edit ? "Enregistrer les modifications" : "Ajouter le match" ?></button>
-                        <a href="./index.php" class="btn btn-secondary">Retour</a>
+                    <button type="submit" class="btn btn-success"><?= $is_edit ? "Enregistrer les modifications" : "Ajouter le match" ?></button>
+                    <a href="./index.php" class="btn btn-secondary">Retour</a>
                 </form>
             </div>
         </div>
