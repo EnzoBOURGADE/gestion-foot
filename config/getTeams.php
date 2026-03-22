@@ -177,7 +177,7 @@ function syncMatchs($pdo, $competition, $periodes) {
                     'club1' => $match['club1'],
                     'club2' => $match['club2'],
                     'date_match' => $match['date'],
-                    'hour_match' => $match['hour'],
+                    'hour_match' => date('H:i:s', strtotime($match['hour'] . ' +2 hours')),
                     'score1' => null,
                     'score2' => null,
                     'competition' => $competition,
